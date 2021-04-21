@@ -3,7 +3,9 @@ const passport = require('passport');
 const {isAdmin} = require('../middlewares/auth.middleware');
 const User = require('../models/User');
 
-const router = express.router();
+/*eslint-disable */
+const router = express.Router();
+/* eslint-enable */
 
 router.get('/register', (req, res, next) => {
   return res.render('register');
