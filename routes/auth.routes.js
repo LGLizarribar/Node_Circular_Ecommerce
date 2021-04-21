@@ -1,5 +1,7 @@
 const express = require('express');
 const passport = require('passport');
+const {isAdmin} = require('../middlewares/auth.middleware');
+const User = require('../models/User');
 
 const router = express.router();
 
@@ -58,6 +60,30 @@ router.post('/logout', (req, res, next) => {
     });
   } else {
     return res.redirect('/auth/login');
+  }
+});
+
+router.get('/users', [isAdmin], async (req, res, next) => {
+  try {
+    const users = await User.find();
+    return res.render('users', {users: users,
+      isAdmin: req.user.role === 'admin', user: req.user});
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.delete('/delete-user', [isAdmin], async (req, res, next) => {
+  try {
+    const {id} = req.body;
+
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (deletedUser) return res.redirect('/auth/users');
+
+    return res.status(404).json('User not found');
+  } catch (error) {
+    next(error);
   }
 });
 
