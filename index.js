@@ -8,6 +8,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const db = require('./db');
 
+const indexRoutes = require('./routes/index.routes');
 const authRoutes = require('./routes/auth.routes');
 
 
@@ -50,9 +51,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
 
-app.use('/', (req, res) => {
-  res.send('Hello world!');
-});
+app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 
 
