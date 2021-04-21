@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Register</title>
+</head>
+<body>
+    <header class="header">
+        <span class="header__logo-container">
+            <img class="header__logo" src="https://www.cssblog.es/archivos/images/Accelrys.jpg" alt="Circular logo">
+        </span>
+        <span>
+            <h1 class="header__title">Circular</h1>
+        </span>
+        <span class="header__navbar-container">
+            <navbar class="navbar">
+                <div>
+                    <a class="navbar__link" href="/auth/login">Acceso</a>
+                    <a class="navbar__link" href="/">Inicio</a>
+                </div>
+            </navbar>
+        </span>
+    </header>
+
+    <div class="form-container">
+        <form class="form-container__form" action="/auth/register" method="POST">
+            <span class="form-container__field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </span>
+            <span class="form-container__field">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" name="surname">
+            </span>
+            <span class="form-container__field">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+            </span>
+            <span class="form-container__field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+            </span>
+            <span class="form-container__field">
+                <label for="city">City</label>
+                <select id="city" name="city">
+                    <option value="company">Madrid</option>
+                    <option value="candidate">Barcelona</option>
+                    <option value="candidate">Granada</option>
+                    <option value="candidate">Vigo</option>
+                    <option value="candidate">San Sebastian</option>
+                </select>
+            </span>
+            <span class="form-container__field">
+                <label for="userImg">Photo (Optional)</label>
+                <input type="file" id="userImg" name="userImg">
+            </span>
+            <button class="form-container__button" type="submit">Submit</button>
+        </form>
+        {{#if error}}
+            <div>
+                <p>{{error}}</p>
+            </div>
+        {{/if}}
+    </div>
+
+</body>
+</html>

@@ -16,12 +16,12 @@ router.post('/register', (req, res, next) => {
 
   if (!email || !password) {
     const err = new Error('User and password are required');
-    return res.render('register', {err: err.message});
+    return res.render('register', {error: err.message});
   }
 
   passport.authenticate('register', (err, user) => {
     if (err) {
-      return res.render('register', {err: err.message});
+      return res.render('register', {error: err.message});
     }
     return res.redirect('/auth/login');
   })(req);
@@ -36,18 +36,18 @@ router.post('/login', (req, res, next) => {
 
   if (!email || !password) {
     const err = new Error('User and password are required');
-    return res.render('login', {err: err.message});
+    return res.render('login', {error: err.message});
   }
 
   passport.authenticate('login', (err, user) => {
     if (err) {
-      return res.render('login', {err: err.message});
+      return res.render('login', {error: err.message});
     }
     req.logIn(user, (err) => {
       if (err) {
-        return res.render('login', {err: err.message});
+        return res.render('login', {error: err.message});
       }
-      return res.redirect('/jobs');
+      return res.redirect('/');
     });
   })(req, res, next);
 });
@@ -84,8 +84,8 @@ router.delete('/delete-user', [isAdmin], async (req, res, next) => {
     if (deletedUser) return res.redirect('/auth/users');
 
     return res.status(404).json('User not found');
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 });
 
