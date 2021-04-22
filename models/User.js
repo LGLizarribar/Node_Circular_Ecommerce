@@ -10,7 +10,7 @@ const userSchema = new Schema({
   password: {type: String, required: true},
   userImg: {type: String},
   role: {type: String, enum: ['user', 'admin'], default: 'user'},
-  productsByUser: [{type: mongoose.Types.ObjectId, ref: 'Products'}],
+  products: [{type: mongoose.Types.ObjectId, ref: 'Products'}],
 },
 {
   timestamps: true,
