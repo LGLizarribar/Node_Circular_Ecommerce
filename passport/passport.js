@@ -44,13 +44,21 @@ const registerEstrategy = new LocalStrategy(
           return done(error);
         }
 
-        const {name, surname, city, userImg} = req.body;
+        const {name, surname, city} = req.body;
+
         const previousUser = await User.findOne({email});
 
         if (previousUser) {
           const err = new Error('User already exists!');
           return done(err);
         }
+
+        let userImg;
+
+        if (req.file) {
+          userImg = req.file.filename;
+        }
+
 
         const hash = await bcrypt.hash(password, SALT_ROUNDS);
 

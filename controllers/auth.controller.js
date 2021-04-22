@@ -1,12 +1,14 @@
 const passport = require('passport');
 const User = require('../models/User');
 
+
 const registerGet = (req, res, next) => {
   return res.render('register');
 };
 
 const registerPost = (req, res, next) => {
   const {email, password} = req.body;
+  console.log(email);
 
   if (!email || !password) {
     const err = new Error('User and password are required');

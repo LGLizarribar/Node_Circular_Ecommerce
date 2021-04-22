@@ -7,10 +7,10 @@ const methodOverride = require('method-override');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const db = require('./db');
-
 const indexRoutes = require('./routes/index.routes');
 const authRoutes = require('./routes/auth.routes');
 
+require('./passport/passport');
 
 const app = express();
 
@@ -62,6 +62,7 @@ app.use('*', (req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
+  console.log(error);
   return res.status(error.status || 500)
       .render('error', {error: error.message || 'Unexpected error'});
 });
