@@ -8,7 +8,6 @@ const registerGet = (req, res, next) => {
 
 const registerPost = (req, res, next) => {
   const {email, password} = req.body;
-  console.log(email);
 
   if (!email || !password) {
     const err = new Error('User and password are required');

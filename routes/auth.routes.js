@@ -1,14 +1,15 @@
 const express = require('express');
 const authController = require('../controllers/auth.controller');
 const {isAdmin} = require('../middlewares/auth.middleware');
-const {upload} = require('../middlewares/files.middleware');
+const {upload, uploadToCloudinary} = require('../middlewares/files.middleware');
+
 
 /*eslint-disable */
 const router = express.Router();
 /* eslint-enable */
 
 router.get('/register', authController.registerGet);
-router.post('/register', [upload.single('userImg')],
+router.post('/register', [upload.single('userImg'), uploadToCloudinary],
     authController.registerPost);
 
 router.get('/login', authController.loginGet);

@@ -53,11 +53,7 @@ const registerEstrategy = new LocalStrategy(
           return done(err);
         }
 
-        let userImg;
-
-        if (req.file) {
-          userImg = req.file.filename;
-        }
+        const userImg = req.file_url;
 
 
         const hash = await bcrypt.hash(password, SALT_ROUNDS);
