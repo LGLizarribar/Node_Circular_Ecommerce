@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const Cart = require('../models/Cart');
 
 const productsGet = async (req, res, next) => {
   try {
@@ -95,7 +96,6 @@ const productDelete = async (req, res, next) => {
   try {
     const deleterId = req.user._id;
     const {id} = req.body;
-    console.log(id);
     const {sellerId} = await Product.findById(id);
 
     if (sellerId.equals(deleterId)) {
@@ -111,6 +111,37 @@ const productDelete = async (req, res, next) => {
   }
 };
 
+const addToCartPut = async (req, res, next) => {
+  try {
+    const clientId = req.user._id;
+    const {id} = req.body;
+    existingCart = await Cart.findOne({clientId});
+    if (!existingCart) {
+      const newCart = new Cart({clientId});
+      await newCart.save();
+      await Cart.findOneAndUpdate(
+          {clientId},
+          {
+            $push: {products: id},
+          },
+          {new: true},
+      );
+      return res.redirect('/products');
+    } else {
+      await Cart.findOneAndUpdate(
+          {clientId},
+          {
+            $push: {products: id},
+          },
+          {new: true},
+      );
+      return res.redirect('/products');
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   productsGet,
   addProductGet,
@@ -119,4 +150,5 @@ module.exports = {
   editProductPut,
   productByIdGet,
   productDelete,
+  addToCartPut,
 };
