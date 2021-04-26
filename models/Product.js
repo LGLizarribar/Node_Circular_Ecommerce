@@ -10,6 +10,7 @@ const productSchema = new Schema({
   price: {type: Number, required: true},
   productImage: {type: String},
   description: {type: String, required: true},
+  status: {type: String, enum: ['available', 'sold'], default: 'available'},
 },
 {
   timestamps: true,
