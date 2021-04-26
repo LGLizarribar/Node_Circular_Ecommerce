@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo');
 const db = require('./db');
 const indexRoutes = require('./routes/index.routes');
 const authRoutes = require('./routes/auth.routes');
+const productsRoutes = require('./routes/products.routes');
 
 require('./passport/passport');
 
@@ -53,6 +54,7 @@ app.use(methodOverride('_method'));
 
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
+app.use('/products', productsRoutes);
 
 
 app.use('*', (req, res, next) => {
