@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Add your items</title>
+</head>
+<body>
+    <header class="header">
+        <span class="header__logo-container">
+            <img class="header__logo" src="https://www.cssblog.es/archivos/images/Accelrys.jpg" alt="Circular logo">
+        </span>
+        <span>
+            <h1 class="header__title">Circular</h1>
+        </span>
+        <span class="header__navbar-container">
+            {{#if user}}
+                <navbar class="navbar">
+                    <span>
+                        <a class="navbar__link" href="/">Volver</a>
+                    </span>
+                    <span>
+                        <a class="navbar__link" href="/products/add-product">Sell your products</a>
+                    </span>
+                    <form class="navbar__link-container" action="/auth/logout" method="POST">
+                        <button class="navbar__link" type="submit">Logout</button>
+                    </form>
+                </navbar>
+            {{else}}
+                <navbar class="navbar">
+                    <span class="navbar__link-container">
+                        <a class="navbar__link" href="/auth/login">Log In</a>
+                    </span>
+                    <span class="navbar__link-container">
+                        <a class="navbar__link" href="/auth/register">Register</a>
+                    </span>
+                </navbar>
+            {{/if}}
+        </span> 
+    </header>
+    <div class="form-container">
+        <form class="form-container__form" action="/products/add-product" method="POST" enctype="multipart/form-data">
+            <span class="form-container__field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </span>
+            <span class="form-container__field">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows='4' cols='50'></textarea>
+            </span>
+            <span class="form-container__field">
+                <label for="category">Category</label>
+                <select id="category" name="category">
+                    <option value="Book">Book</option>
+                    <option value="Film">Film</option>
+                    <option value="Videogame">Videogame</option>
+                    <option value="Boardgame">Boardgame</option>
+                    <option value="Other">Other</option>
+                </select>
+            </span>
+            <span class="form-container__field">
+                <label for="price">Price</label>
+                <input type="float" id="price" name="price">
+            </span>
+            <span class="form-container__field">
+                <label for="productImage">Image</label>
+                <input type="file" id="productImage" name="productImage">
+            </span>
+            <button class="form-container__button" type="submit">Sell</button>
+        </form>
+        {{#if error}}
+            <div>
+                <p>{{error}}</p>
+            </div>
+        {{/if}}
+</body>
+</html>

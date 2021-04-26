@@ -27,7 +27,7 @@ router.post('/add-product', [upload.single('productImage'), uploadToCloudinary],
     const productImage = req.file_url;
     const newProduct = new Product({sellerId, name, category, price, productImage, description});
     await newProduct.save();
-    return res.json(newProduct);
+    return res.redirect('/products');
   } catch (err) {
     next(err);
   }
