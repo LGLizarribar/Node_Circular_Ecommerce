@@ -46,19 +46,31 @@
             {{#if product.productImage}}
             <img class="header__logo" src="{{product.productImage}}" alt="{{product.name}}">
             {{/if}}
-            <h1 class="main-offers__title">{{product.name}}</h1>
-            <h4 class="main-offers__content">Category: {{product.category}}</h4>
+            <h1 class="main-products__title">{{product.name}}</h1>
+            <h4 class="main-products__content">Category: {{product.category}}</h4>
             {{#if product.description}}
-            <p class="main-offers__content">Description: {{product.description}}</p>
+            <p class="main-products__content">Description: {{product.description}}</p>
             {{/if}}
-            <p class="main-offers__content">Price: {{product.price}}</p>
+            <p class="main-products__content">Price: {{product.price}}</p>
         </div>
-        <div class="main-offers__button-container">
+        <div class="main-products__button-container">
             {{#if user}}
-            <span class="main-offers__form-button">
+            <span class="main-products__form-button">
                 <form action="/products/add-to-cart/?_method=PUT" method="POST">
-                    <input class="main-offers__content" type="hidden" id="id" name="id" value={{product._id}}>
+                    <input class="main-products__content" type="hidden" id="id" name="id" value={{product._id}}>
                     <button class="form-container__button" type="submit">Add to cart</button>
+                </form>
+            </span>
+            <span class="main-products__form-button">
+                <form action="/products/edit-product/{{product._id}}" method="GET">
+                    <input class="main-products__content" type="hidden" id="id" name="id" value={{product._id}}>
+                    <button class="form-container__button" type="submit">Edit Item</button>
+                </form>
+            </span>
+            <span class="main-products__form-button">
+                <form action="/products/delete-product/?_method=DELETE" method="POST">
+                    <input class="main-products__content" type="hidden" id="id" name="id" value={{product._id}}>
+                    <button class="form-container__button" type="submit">Delete</button>
                 </form>
             </span>
             {{/if}}
