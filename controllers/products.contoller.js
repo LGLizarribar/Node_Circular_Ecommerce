@@ -91,6 +91,26 @@ const productByIdGet = async (req, res, next) => {
   }
 };
 
+const productDelete = async (req, res, next) => {
+  try {
+    const deleterId = req.user._id;
+    const {id} = req.body;
+    console.log(id);
+    const {sellerId} = await Product.findById(id);
+
+    if (sellerId.equals(deleterId)) {
+      const deleted = await Product.findByIdAndDelete(id);
+      if (deleted) return res.redirect('/products');
+
+      return res.status(404).json('Product not found');
+    } else {
+      return res.status(404).render('error', {error: 'This user cannot delete this product!'});
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   productsGet,
   addProductGet,
@@ -98,4 +118,5 @@ module.exports = {
   editProductGet,
   editProductPut,
   productByIdGet,
+  productDelete,
 };

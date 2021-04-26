@@ -17,6 +17,8 @@ router.get('/edit-product/:id', [isSameUser], productsController.editProductGet)
 // eslint-disable-next-line max-len
 router.put('/edit-product', [upload.single('productImage'), uploadToCloudinary, isSameUser], productsController.editProductPut);
 
+router.delete('/delete-product', productsController.productDelete);
+
 router.get('/:id', productsController.productByIdGet);
 
 module.exports = router;
