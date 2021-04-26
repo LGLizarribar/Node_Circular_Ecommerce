@@ -10,6 +10,7 @@ const db = require('./db');
 const indexRoutes = require('./routes/index.routes');
 const authRoutes = require('./routes/auth.routes');
 const productsRoutes = require('./routes/products.routes');
+const cartRoutes = require('./routes/cart.routes');
 
 require('./passport/passport');
 
@@ -55,6 +56,7 @@ app.use(methodOverride('_method'));
 app.use('/', indexRoutes);
 app.use('/auth', authRoutes);
 app.use('/products', productsRoutes);
+app.use('/cart', cartRoutes);
 
 
 app.use('*', (req, res, next) => {
