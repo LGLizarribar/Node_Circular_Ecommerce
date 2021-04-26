@@ -9,6 +9,7 @@ const productSchema = new Schema({
   buyerId: {type: mongoose.Types.ObjectId, ref: 'User'},
   price: {type: Number, required: true},
   productImage: {type: String},
+  description: {type: String, required: true},
 },
 {
   timestamps: true,
