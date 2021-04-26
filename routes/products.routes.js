@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.find();
-    return res.json(products);
+    return res.render('products', {products, user: req.user});
   } catch (err) {
     next(err);
   }
