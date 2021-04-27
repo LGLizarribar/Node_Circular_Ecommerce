@@ -10,7 +10,6 @@ router.get('/', productsController.productsGet);
 
 router.get('/add-product', [isAuthenticated], productsController.addProductGet);
 
-// eslint-disable-next-line max-len
 router.post(
     '/add-product',
     [upload.single('productImage'), uploadToCloudinary],
@@ -19,10 +18,9 @@ router.post(
 
 router.get('/edit-product/:id', [isSameUser], productsController.editProductGet);
 
-// eslint-disable-next-line max-len
 router.put(
     '/edit-product',
-    [upload.single('productImage'), uploadToCloudinary, isSameUser],
+    [upload.single('productImage'), uploadToCloudinary],
     productsController.editProductPut,
 );
 

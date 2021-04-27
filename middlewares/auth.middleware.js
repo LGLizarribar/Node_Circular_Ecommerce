@@ -25,10 +25,10 @@ const isAdmin = (req, res, next) => {
 const isSameUser = async (req, res, next) => {
   try {
     const {id} = req.params;
-    console.log(id);
     const updaterId = req.user._id;
-    const {sellerId} = await Product.findById(id);
-    if (sellerId && sellerId.equals(updaterId)) {
+    const product = await Product.findById(id);
+    const sellerId = product.sellerId;
+    if (sellerId.equals(updaterId)) {
       return next();
     } else {
       const error = new Error('Forbidden page');
