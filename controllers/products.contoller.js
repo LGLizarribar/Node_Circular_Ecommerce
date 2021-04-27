@@ -4,7 +4,8 @@ const Cart = require('../models/Cart');
 const productsGet = async (req, res, next) => {
   try {
     const products = await Product.find();
-    return res.render('products', {products, user: req.user});
+    const availableProducts = products.filter((item)=> item.status === 'available');
+    return res.render('products', {products: availableProducts, user: req.user});
   } catch (err) {
     next(err);
   }
