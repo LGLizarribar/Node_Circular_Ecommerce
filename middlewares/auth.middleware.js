@@ -28,7 +28,7 @@ const isSameUser = async (req, res, next) => {
     console.log(id);
     const updaterId = req.user._id;
     const {sellerId} = await Product.findById(id);
-    if (sellerId.equals(updaterId)) {
+    if (sellerId && sellerId.equals(updaterId)) {
       return next();
     } else {
       const error = new Error('Forbidden page');
