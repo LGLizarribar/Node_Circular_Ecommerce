@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Shop</title>
+</head>
+
+<body>
+    <header class="header">
+        <span class="header__logo-container">
+            <img class="header__logo" src="https://www.cssblog.es/archivos/images/Accelrys.jpg" alt="Circular logo">
+        </span>
+        <span>
+            <h1 class="header__title">Circular</h1>
+        </span>
+        <span class="header__navbar-container">
+            {{#if user}}
+            <navbar class="navbar">
+                <span>
+                    <a class="navbar__link" href="/">Volver</a>
+                </span>
+                <span>
+                    <a class="navbar__link" href="/products/add-product">Sell your products</a>
+                </span>
+                <form class="navbar__link-container" action="/auth/logout" method="POST">
+                    <button class="navbar__link" type="submit">Logout</button>
+                </form>
+            </navbar>
+            {{else}}
+            <navbar class="navbar">
+                <span class="navbar__link-container">
+                    <a class="navbar__link" href="/auth/login">Log In</a>
+                </span>
+                <span class="navbar__link-container">
+                    <a class="navbar__link" href="/auth/register">Register</a>
+                </span>
+            </navbar>
+            {{/if}}
+        </span>
+    </header>
+    <main class="main-products">
+        {{#if product}}
+        <div>
+            {{#if product.productImage}}
+            <img class="header__logo" src="{{product.productImage}}" alt="{{product.name}}">
+            {{/if}}
+            <h1 class="main-offers__title">{{product.name}}</h1>
+            <h4 class="main-offers__content">Category: {{product.category}}</h4>
+            {{#if product.description}}
+            <p class="main-offers__content">Description: {{product.description}}</p>
+            {{/if}}
+            <p class="main-offers__content">Price: {{product.price}}</p>
+        </div>
+        <div class="main-offers__button-container">
+            {{#if user}}
+            <span class="main-offers__form-button">
+                <form action="/products/add-to-cart/?_method=PUT" method="POST">
+                    <input class="main-offers__content" type="hidden" id="id" name="id" value={{product._id}}>
+                    <button class="form-container__button" type="submit">Add to cart</button>
+                </form>
+            </span>
+            {{/if}}
+            <div class="form-container">
+                <form class="form-container__form" action="/products/edit-product/?_method=PUT" method="POST"
+                    enctype="multipart/form-data">
+                    <input class="main-offers__content" type="hidden" id="id" name="id" value={{product._id}}>
+                    <span class="form-container__field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name">
+                    </span>
+                    <span class="form-container__field">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows='4' cols='50'></textarea>
+                    </span>
+                    <span class="form-container__field">
+                        <label for="category">Category</label>
+                        <select id="category" name="category">
+                            <option value="Book">Book</option>
+                            <option value="Film">Film</option>
+                            <option value="Videogame">Videogame</option>
+                            <option value="Boardgame">Boardgame</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </span>
+                    <span class="form-container__field">
+                        <label for="price">Price</label>
+                        <input type="float" id="price" name="price">
+                    </span>
+                    <span class="form-container__field">
+                        <label for="productImage">Image</label>
+                        <input type="file" id="productImage" name="productImage">
+                    </span>
+                    <button class="form-container__button" type="submit">Change</button>
+                </form>
+                {{#if error}}
+                <div>
+                    <p>{{error}}</p>
+                </div>
+                {{/if}}
+            </div>
+            {{else}}
+            <h3>Item not found</h3>
+            {{/if}}
+    </main>
+</body>
+
+</html>

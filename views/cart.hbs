@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>Cart</title>
+</head>
+
+<body>
+    <header class="header">
+        <span class="header__logo-container">
+            <img class="header__logo" src="https://www.cssblog.es/archivos/images/Accelrys.jpg" alt="Circular logo">
+        </span>
+        <span>
+            <h1 class="header__title">Circular</h1>
+        </span>
+        <span class="header__navbar-container">
+            {{#if user}}
+            <navbar class="navbar">
+                <span>
+                    <a class="navbar__link" href="/products">Volver</a>
+                </span>
+                <span>
+                    <a class="navbar__link" href="/products/add-product">Sell your products</a>
+                </span>
+                <form class="navbar__link-container" action="/auth/logout" method="POST">
+                    <button class="navbar__link" type="submit">Logout</button>
+                </form>
+            </navbar>
+            {{else}}
+            <navbar class="navbar">
+                <span class="navbar__link-container">
+                    <a class="navbar__link" href="/auth/login">Log In</a>
+                </span>
+                <span class="navbar__link-container">
+                    <a class="navbar__link" href="/auth/register">Register</a>
+                </span>
+            </navbar>
+            {{/if}}
+        </span>
+    </header>
+    <main class="main-products">
+        {{#if products}}
+            {{#each products}}
+            <div>
+                <h1 class="main-products__title">{{name}}</h1>
+                <p class="main-products__content">Price: {{price}}</p>
+            </div>
+            {{/each}}
+            <div class="main-products__price">{{totalPrice}}</div>
+
+            <div class="main-products__button-container">
+                <form action="/cart/buy/?_method=PUT" method="POST">
+                    <input class="main-products__content" type="hidden" id="id" name="id" value={{cartId}}>
+                    <button class="form-container__button" type="submit">Buy</button>
+                </form>
+            </div>
+        {{else}}
+            <h3>Item not found</h3>
+        {{/if}}
+    </main>
+</body>
+
+</html>
