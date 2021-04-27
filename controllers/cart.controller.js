@@ -8,12 +8,14 @@ const cartGet = async (req, res, next) => {
     if (cart) {
       const cartId = cart._id;
       const cartItems = await Cart.findById(cartId).populate('products');
-      /* const totalPrice = await Cart.aggregate([
-              {$group: {
-                      _id: cart._id,
-                      total: {$sum: '$price'}}}]);
-          console.log(totalPrice);*/
-      return res.render('cart', {products: cartItems.products, user: req.user, cartId});
+      const products = cartItems.products;
+      let totalPrice = 0;
+      products.forEach((item) => {
+        totalPrice += item.price;
+        return totalPrice;
+      });
+      const floatPrice = parseFloat(totalPrice).toFixed(2);
+      return res.render('cart', {products, user: req.user, cartId, totalPrice: floatPrice});
     };
     return res.redirect('/products');
   } catch (err) {

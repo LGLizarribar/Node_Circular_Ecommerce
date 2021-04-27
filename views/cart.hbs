@@ -50,6 +50,7 @@
                 <p class="main-products__content">Price: {{price}}</p>
             </div>
             {{/each}}
+            <div class="main-products__price">{{totalPrice}}</div>
 
             <div class="main-products__button-container">
                 <form action="/cart/buy/?_method=PUT" method="POST">
