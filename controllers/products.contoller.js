@@ -30,9 +30,9 @@ const addProductPost = async (req, res, next) => {
   }
 };
 
-const editProductGet = async (req, res, next) => {
+const editProductPost = async (req, res, next) => {
   try {
-    const {id} = req.params;
+    const {id} = req.body;
 
     const product = await Product.findById(id);
 
@@ -147,7 +147,7 @@ module.exports = {
   productsGet,
   addProductGet,
   addProductPost,
-  editProductGet,
+  editProductPost,
   editProductPut,
   productByIdGet,
   productDelete,

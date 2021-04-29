@@ -65,7 +65,7 @@
                 </form>
             </span>
             <span class="main-products__form-button">
-                <form action="/products/edit-product/{{product._id}}" method="GET">
+                <form action="/products/edit-product" method="POST">
                     <input class="main-products__content" type="hidden" id="id" name="id" value={{product._id}}>
                     <button class="form-container__button" type="submit">Edit Item</button>
                 </form>

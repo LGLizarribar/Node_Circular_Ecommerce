@@ -24,7 +24,7 @@ const isAdmin = (req, res, next) => {
 
 const isSameUser = async (req, res, next) => {
   try {
-    const {id} = req.params;
+    const {id} = req.body;
     const updaterId = req.user._id;
     const product = await Product.findById(id);
     const sellerId = product.sellerId;

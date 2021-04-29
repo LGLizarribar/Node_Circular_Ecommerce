@@ -16,11 +16,11 @@ router.post(
     productsController.addProductPost,
 );
 
-router.get('/edit-product/:id', [isSameUser], productsController.editProductGet);
+router.post('/edit-product', [isSameUser], productsController.editProductPost);
 
 router.put(
     '/edit-product',
-    [upload.single('productImage'), uploadToCloudinary],
+    [upload.single('productImage'), uploadToCloudinary, isSameUser],
     productsController.editProductPut,
 );
 
