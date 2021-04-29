@@ -33,7 +33,7 @@ const BuyPost = async (req, res, next) => {
     for (const i of cartItems.products) {
       updateState(i.id);
     }
-    Cart.collection.drop();
+    await Cart.findByIdAndDelete(cartId);
     return res.redirect('/products');
   } catch (error) {
     next(error);
